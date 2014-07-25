@@ -5,12 +5,20 @@ The Postmark mailer app provides a `Foxx.queues` job type for sending transactio
 *Examples*
 
 ```js
-var queue = require('org/arangodb/foxx').queues.create('my-queue', 1);
+var Foxx = require('org/arangodb/foxx')
+    queue = Foxx.queues.create('my-queue', 1);
+
 queue.push('mailer.postmark', {
     From: 'postmaster@initech.example',
     To: 'john.doe@employees.initech.example',
     Subject: 'Termination',
     HtmlBody: '<blink>YOU ARE FIRED!</blink>'
+});
+
+// or if you prefer not to hardcode the job type:
+
+queue.push(Foxx.requireApp('/postmark-mailer-mountpoint').mailer.jobType, {
+    // ...
 });
 ```
 
