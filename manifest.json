@@ -1,0 +1,31 @@
+{
+  "name": "mailer-postmark",
+  "author": "Alan Plum",
+  "version": "0.1",
+  "description": "Mailer task for Foxx using Postmark.",
+
+  "exports": {
+    "mailer": "mailer.js"
+  },
+
+  "defaultDocument": "",
+
+  "lib": ".",
+
+  "configuration": {
+    "apiKey": {
+      "description": "",
+      "type": "string"
+    },
+    "taskName": {
+      "description": "",
+      "type": "string",
+      "default": "mailer.postmark"
+    },
+    "maxFailures": {
+      "description": "",
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
