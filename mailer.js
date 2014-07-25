@@ -20,20 +20,18 @@ queues.registerJobType(applicationContext.configuration.jobType, {
         }
       }
     );
-    if (!response.body) {
-      if (Math.floor(response.code / 100) === 2) {
-        return;
+    if (response.body) {
+      body = JSON.parse(response.body);
+      if (body.ErrorCode !== 0) {
+        throw new Error(
+          'Server returned error code ' +
+          body.ErrorCode +
+          ' with message: ' +
+          body.Message
+        );
       }
+    } else if (Math.floor(response.code / 100) !== 2) {
       throw new Error('Server sent an empty response with status ' + response.code);
-    }
-    body = JSON.parse(response.body);
-    if (body.ErrorCode !== 0) {
-      throw new Error(
-        'Server returned error code ' +
-        body.ErrorCode +
-        ' with message: ' +
-        body.Message
-      );
     }
   }
 });
