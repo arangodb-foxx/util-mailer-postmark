@@ -14,16 +14,16 @@
 
   "configuration": {
     "apiKey": {
-      "description": "",
+      "description": "Your Postmark server's API key.",
       "type": "string"
     },
-    "taskName": {
-      "description": "",
+    "jobType": {
+      "description": "Name of the job type to register.",
       "type": "string",
       "default": "mailer.postmark"
     },
     "maxFailures": {
-      "description": "",
+      "description": "Maximum number of times to retry a job if it fails.",
       "type": "integer",
       "default": 0
     }

@@ -3,7 +3,7 @@
 var queues = require('org/arangodb/foxx').queues,
   internal = require('internal');
 
-queues.registerTask(applicationContext.configuration.taskName, {
+queues.registerJobType(applicationContext.configuration.jobType, {
   maxFailures: applicationContext.configuration.maxFailures,
   execute: function (data) {
     'use strict';
@@ -38,10 +38,10 @@ queues.registerTask(applicationContext.configuration.taskName, {
   }
 });
 
-Object.defineProperty(exports, 'taskName', {
+Object.defineProperty(exports, 'jobType', {
   get: function () {
     'use strict';
-    return applicationContext.configuration.taskName;
+    return applicationContext.configuration.jobType;
   },
   configurable: false,
   enumerable: true
