@@ -2,7 +2,7 @@
   "name": "mailer-postmark",
   "author": "Alan Plum",
   "version": "0.1",
-  "description": "Mailer task for Foxx using Postmark.",
+  "description": "Mailer job type for Foxx using Postmark.",
 
   "exports": {
     "mailer": "mailer.js"
