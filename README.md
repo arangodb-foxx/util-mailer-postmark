@@ -5,7 +5,7 @@ The Postmark mailer app provides a `Foxx.queues` job type for sending transactio
 *Examples*
 
 ```js
-var Foxx = require('org/arangodb/foxx')
+var Foxx = require('org/arangodb/foxx'),
     queue = Foxx.queues.create('my-queue', 1);
 
 queue.push('mailer.postmark', {
