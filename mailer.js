@@ -1,47 +1,35 @@
-/*jshint indent: 2, nomen: true, maxlen: 120 */
-/*global require, exports, applicationContext */
-var queues = require('org/arangodb/foxx').queues,
-  internal = require('internal');
+/*global require, module, applicationContext */
+'use strict';
 
-queues.registerJobType(applicationContext.configuration.jobType, {
-  maxFailures: applicationContext.configuration.maxFailures,
-  execute: function (data) {
-    'use strict';
-    var response, body;
-    response = internal.download(
-      'http://api.postmarkapp.com/email',
-      JSON.stringify(data),
-      {
-        method: 'POST',
-        headers: {
-          'accept': 'application/json',
-          'content-type': 'application/json',
-          'x-postmark-server-token': applicationContext.configuration.apiKey
-        }
-      }
-    );
-    if (response.body) {
-      body = JSON.parse(response.body);
-      if (body.ErrorCode !== 0) {
-        throw new Error(
-          'Server returned error code ' +
-          body.ErrorCode +
-          ' with message: ' +
-          body.Message
-        );
-      }
-      return body;
-    } else if (Math.floor(response.code / 100) !== 2) {
-      throw new Error('Server sent an empty response with status ' + response.code);
-    }
+var apiKey = applicationContext.configuration.apiKey;
+var request = require('org/arangodb/request');
+var util = require('util');
+
+var data = require('./exports').schema.validate(applicationContext.argv[0]);
+if (data.error) {
+  throw data.error;
+}
+
+var response = request.post('http://api.postmarkapp.com/email', {
+  body: data.value,
+  json: true,
+  headers: {
+    'accept': 'application/json',
+    'content-type': 'application/json',
+    'x-postmark-server-token': applicationContext.configuration.apiKey
   }
 });
 
-Object.defineProperty(exports, 'jobType', {
-  get: function () {
-    'use strict';
-    return applicationContext.configuration.jobType;
-  },
-  configurable: false,
-  enumerable: true
-});
+if (response.body) {
+  if (response.body.ErrorCode !== 0) {
+    throw new Error(util.format(
+      'Server returned error code %s with message: %s',
+      response.body.ErrorCode,
+      response.body.Message
+    ));
+  }
+} else if (Math.floor(response.statusCode / 100) !== 2) {
+  throw new Error('Server sent an empty response with status ' + response.statusCode);
+}
+
+module.exports = response.body;
