@@ -2,27 +2,22 @@
   "name": "mailer-postmark",
   "description": "Mailer job type for Foxx using Postmark.",
   "author": "ArangoDB GmbH",
-  "version": "2.0.0-dev",
+  "version": "2.0.0",
   "license": "Apache License, Version 2.0",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/arangodb/foxx-mailer-postmark.git"
   },
-
   "contributors": [
     {
       "name": "Alan Plum",
       "email": "me@pluma.io"
     }
   ],
-
   "exports": "exports.js",
-
   "scripts": {
     "mailer": "mailer.js"
   },
-
   "configuration": {
     "apiKey": {
       "description": "Your Postmark server's API key.",
