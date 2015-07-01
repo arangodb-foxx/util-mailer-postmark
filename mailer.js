@@ -1,6 +1,5 @@
 /*global require, module, applicationContext */
 'use strict';
-
 var apiKey = applicationContext.configuration.apiKey;
 var request = require('org/arangodb/request');
 var util = require('util');
