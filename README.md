@@ -1,6 +1,6 @@
 # The Postmark Mailer App
 
-The Postmark mailer app provides a `Foxx.queues` job type for sending transactional emails with [Postmark](https://postmarkapp.com/).
+The Postmark mailer app provides a Foxx script and `Foxx.queues` job type for sending transactional emails with [Postmark](https://postmarkapp.com/).
 
 **Note:** Version 2.0.0 and higher require ArangoDB 2.6 or later to work correctly.
 
